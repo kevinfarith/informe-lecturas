@@ -1,14 +1,21 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "installCommand": "cd web && npm ci",
-  "buildCommand": "cd web && VITE_API_SAME_ORIGIN=1 npm run build",
-  "outputDirectory": "web/dist",
-  "functions": {
-    "api/main.py": {
-      "maxDuration": 60,
-      "excludeFiles": "{web/**,.venv/**,.github/**}"
+  "services": {
+    "frontend": {
+      "root": "web",
+      "framework": "vite",
+      "buildCommand": "VITE_API_SAME_ORIGIN=1 npm run build",
+      "outputDirectory": "dist",
+      "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+    },
+    "backend": {
+      "root": ".",
+      "framework": "fastapi",
+      "entrypoint": "api/main.py"
     }
   },
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api/main" }]
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": { "service": "backend" } },
+    { "source": "/(.*)", "destination": { "service": "frontend" } }
+  ]
 }
