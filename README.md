@@ -1,6 +1,8 @@
 # Automatización: informe de lecturas + panel ATILA
 
-Repositorio: [https://github.com/RamiroS1/forms-aluna](https://github.com/RamiroS1/forms-aluna)
+Repositorio: [https://github.com/kevinfarith/informe-lecturas](https://github.com/kevinfarith/informe-lecturas)
+
+Producción: [https://inf-iota.vercel.app](https://inf-iota.vercel.app)
 
 Aplicación **React (Vite) + Tailwind** en `web/`, y **API FastAPI** en `api/` (Python) para generar el Excel y resumir el progreso ATILA.
 
@@ -29,12 +31,11 @@ Si al subir un **.csv** u otra actualización de la API sigue saliendo el mensaj
 
 ## GitHub y Vercel
 
-- Remoto configurado: `origin` → `https://github.com/RamiroS1/forms-aluna.git` · rama `main`
-- El primer commit ya está hecho en esta copia. Para subir cambios (necesitas iniciar sesión en GitHub en tu máquina):
-  - HTTPS: `git push -u origin main` (Git pedirá usuario y un **Personal Access Token** con permiso `repo`, no la contraseña de la cuenta)
-  - O SSH: `git remote set-url origin git@github.com:RamiroS1/forms-aluna.git` y `git push -u origin main` (con clave SSH añadida en GitHub)
-- Configura en Vercel el **root** del front en `web` y la variable `VITE_API_BASE_URL` apuntando a tu API pública.
-- Instrucciones detalladas: [DEPLOY.md](./DEPLOY.md)
+- Remoto: `origin` → `https://github.com/kevinfarith/informe-lecturas.git` · rama `main`
+- El repo está conectado al proyecto Vercel: cada push a `main` despliega a producción y las demás ramas/PR generan una vista previa.
+- `vercel.json` (raíz) usa **Vercel Services**: el servicio `frontend` (`web/`, Vite) y el servicio `backend` (FastAPI, `api/main.py`) se publican en el mismo dominio; `/api/*` va a la API. No hace falta `VITE_API_BASE_URL`.
+- Límite de subida a la API en Vercel: ~4,5 MB por petición.
+- Despliegue de la API en otro hosting (Railway, Render…): ver [DEPLOY.md](./DEPLOY.md)
 
 ## Estructura principal
 
