@@ -528,6 +528,11 @@ def _sheet_sort_key(name: str) -> tuple:
 
 
 def default_template_path() -> Path:
-    base = Path(__file__).resolve().parent.parent
-    cand = base / "FORMATO_LEC_AURELIO MARTÍNEZ MUTIS.xlsx"
-    return cand
+    # Raíz del proyecto (despliegue en Vercel) o carpeta superior (estructura antigua `automation/`).
+    here = Path(__file__).resolve().parent
+    name = "FORMATO_LEC_AURELIO MARTÍNEZ MUTIS.xlsx"
+    for base in (here, here.parent):
+        cand = base / name
+        if cand.is_file():
+            return cand
+    return here / name
